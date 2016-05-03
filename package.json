@@ -1,0 +1,23 @@
+{
+  "name": "friendly-octo-waddle",
+  "version": "0.0.0",
+  "dependencies": {
+    "react": "15.0.0",
+    "react-dom": "15.0.0"
+  },
+  "devDependencies": {
+    "babel-loader": "6.2.4",
+    "babel-preset-es2015": "6.6.0",
+    "babel-preset-react": "6.5.0",
+    "express": "4.13.4",
+    "webpack": "1.12.14"
+  },
+  "engines": {
+    "node": ">= 6.0.0"
+  },
+  "scripts": {
+    "compile": "webpack",
+    "postinstall": "webpack",
+    "watch": "webpack --watch"
+  }
+}
