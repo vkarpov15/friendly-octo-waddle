@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
+import { Link, Router, Route, IndexRoute, hashHistory } from 'react-router';
 import { applyMiddleware, createStore } from 'redux';
 import superagent from 'superagent';
 
@@ -36,6 +37,32 @@ const store = createStore(reducer, applyMiddleware(promiseMiddleware));
 const ARTICLE_URL =
   'https://conduit.productionready.io/api/articles?limit=10&offset=0';
 
+const Header = () => {
+  return (
+    <nav className="navbar navbar-light">
+      <div className="container">
+        <Link to="/" className="navbar-brand">
+          Conduit
+        </Link>
+
+        <Link to="login">Login</Link>
+      </div>
+    </nav>
+  );
+}
+
+const Home = () => {
+  return (
+    <h1>Home</h1>
+  );
+}
+
+const Login = () => {
+  return (
+    <h1>Login</h1>
+  );
+}
+
 class App extends React.Component {
   constructor() {
     super();
@@ -47,24 +74,20 @@ class App extends React.Component {
   }
 
   render() {
-    const onClick = () => store.dispatch({
-      type: 'LOAD_ARTICLES',
-      payload: superagent.get(ARTICLE_URL)
-    });
     return (
       <div>
-        <h1>Articles</h1>
-        <div>
-          <button onClick={onClick}>Load Articles</button>
-        </div>
-        <div>
-          Number of Articles: {this.state.articlesCount}
-        </div>
+        <Header />
+        {this.props.children}
       </div>
     );
   }
 }
 
 ReactDOM.render((
-  <App />
+  <Router history={hashHistory}>
+    <Route path="/" component={App}>
+      <IndexRoute component={Home} />
+      <Route path="login" component={Login} />
+    </Route>
+  </Router>
 ), document.getElementById('main'));
